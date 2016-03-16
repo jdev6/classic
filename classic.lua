@@ -22,9 +22,12 @@ local classic = {
 local function constructor(self, arg) --Class template constructor
     local o = setmetatable({}, {__index = self})
 
-    for k,v in pairs(arg) do
-        o[k] = v
+    if arg then
+        for k,v in pairs(arg) do
+            o[k] = v
+        end
     end
+
     return o
 end
 
@@ -32,5 +35,4 @@ function classic.newClass(self, defaults) --Create new class
     return setmetatable({}, {__call = constructor, __index = defaults})
 end
 
-classic = setmetatable(classic, {__call=classic.newClass})
-return classic
+return classic.newClass
